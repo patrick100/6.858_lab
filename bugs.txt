@@ -3,15 +3,45 @@
 # desc
 #
 
-[zookd.c:1612]
-description goes here. for example, the 'buf' variable can be
-overwritten by the 'msg' variable because ...
+#bug 1
+[http.c:344]
+strcpy(dst, dirname) strcpy is not a security func.
 
     <paste offending line(s) of code here>
 
-[http.c:1512]
-another description.
+# bug 2
+[http.c:282]
+strcat(pn, name) strcat is not a security func.
 
     <paste offending line(s) of code here>
+
+# bug 3
+[http.c:347]
+strcat(dst, filename) strcat is not a security func.
+
+    <paste offending line(s) of code here>
+
+# bug 4
+[http.c:159]
+In "const char *http_request_headers"
+url_decode(value, sp);
+
+value's longth should be less than 512, over 512 will be error.
+
+exploit-2b will use this bug
+    <paste offending line(s) of code here>
+
+# bug 5
+[http.c:105]
+In "const char *http_request_line"
+
+url_decode(reqpath, sp1);
+
+reqpath's longth should be less than 2048, over 2048 will be error.
+
+exploit-2a will use this bug
+
+    <paste offending line(s) of code here>
+
 
 # many more come here
