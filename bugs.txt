@@ -22,11 +22,8 @@ strcat(dst, filename) strcat is not a security func.
     <paste offending line(s) of code here>
 
 # bug 4
-[http.c:159]
+[http.c:   ]
 In "const char *http_request_headers"
-url_decode(value, sp);
-
-value's longth should be less than 512, over 512 will be error.
 
 exploit-2b will use this bug
     <paste offending line(s) of code here>
