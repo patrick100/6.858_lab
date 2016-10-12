@@ -6,7 +6,10 @@
 #bug 1
 [http.c:105]
 In "const char *http_request_line"
-url_decode(reqpath, sp1);
+105    url_decode(reqpath, sp1);
+
+In "static void process_client" [zookd.c]
+65    char reqpath[2048];
 
 reqpath's longth should be less than 2048, over 2048 will be error.
 exploit-2a will use this bug
@@ -14,6 +17,17 @@ exploit-2a will use this bug
     <paste offending line(s) of code here>
 
 # bug 2
+[http.c:159]
+In "const char *http_request_headers"
+
+120    char value[512];
+159    url_decode(value, sp);
+
+value's longth should be less than 512, over 512 will be error.
+
+    <paste offending line(s) of code here>
+
+# bug 3
 [http.c:282]
 In "void http_serve"
 strcat(pn, name) strcat is not a security func.
@@ -22,29 +36,23 @@ reqpath's longth should be less than 1024, over 1024 will be error.
 exploit-2b will use this bug
     <paste offending line(s) of code here>
 
-# bug 3
-[http.c:347]
+# bug 4
+[http.c:344]
+In "void dir_join"
 strcat(dst, filename);
 
 strcat is not a security func.
 
     <paste offending line(s) of code here>
 
-# bug 4
-[http.c:159]
-In "const char *http_request_headers"
-url_decode(value, sp);
-
-url_decode is not a security func.
-
-    <paste offending line(s) of code here>
-
 # bug 5
-[http.c:344]
-In "void dir_join"
-strcpy(dst, dirname);
+[http.c:165]
+In "const char *http_request_headers"
+118    static char buf[8192];
+121    char envvar[512];
+165    sprintf(envvar, "HTTP_%s", buf);
 
-strcpy is not a security func.
+envvar maybe overflow
 
     <paste offending line(s) of code here>
 
